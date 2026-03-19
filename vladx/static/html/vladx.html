@@ -1,0 +1,108 @@
+<!-- ========================================================================
+     HTML-шаблон студенческого представления (student_view) VladX Learning Hub
+
+     ВАЖНО ДЛЯ XBLOCK-РАЗРАБОТЧИКА:
+     Этот файл загружается в Python через resource_string("static/html/vladx.html")
+     и подставляется в Fragment: frag = Fragment(html.format(self=self))
+
+     Плейсхолдеры {{self.field_name}} заменяются значениями полей XBlock
+     через Python str.format(). Двойные фигурные скобки {{{{ }}}} экранируются
+     в одинарные {{ }} после format(), что нужно для CSS/JS внутри HTML.
+
+     HTML-содержимое добавляется во Fragment, который затем оборачивается
+     runtime-ом в <div> с атрибутами data-usage, data-init и т.д.
+     Именно через эти атрибуты JavaScript-runtime находит и инициализирует блок.
+     ======================================================================== -->
+
+<!-- Основной контейнер блока -->
+<!-- data-mode хранит текущий режим отображения (compact/full) из Scope.preferences -->
+<div class="vladx-block" data-mode="{self.display_mode}">
+
+    <!-- ===== ЗАГОЛОВОК БЛОКА ===== -->
+    <!-- display_name -- поле Scope.settings, устанавливается преподавателем в Studio -->
+    <div class="vladx-header">
+        <h3 class="vladx-display-name">{self.display_name}</h3>
+        <!-- Кнопка переключения режима: compact скрывает второстепенные секции -->
+        <button class="vladx-toggle-mode"
+                title="Переключить режим отображения (Scope.preferences)">
+            {self.display_mode}
+        </button>
+    </div>
+
+    <!-- ===== СЕКЦИЯ ВОПРОСА ===== -->
+    <!-- question_text -- поле Scope.content, общее для всех студентов и всех запусков курса -->
+    <div class="vladx-question">
+        <p class="vladx-question-text">{self.question_text}</p>
+    </div>
+
+    <!-- ===== СЕКЦИЯ ВВОДА ОТВЕТА ===== -->
+    <!-- student_answer -- поле Scope.user_state, уникальное для каждого студента -->
+    <div class="vladx-answer-section">
+        <input type="text"
+               class="vladx-answer-input"
+               value="{self.student_answer}"
+               placeholder="Введите ваш ответ..." />
+
+        <div class="vladx-buttons">
+            <!-- Кнопка вызывает обработчик submit_answer через AJAX -->
+            <button class="vladx-submit-btn">Отправить</button>
+            <!-- Кнопка вызывает обработчик reset_answer через AJAX -->
+            <button class="vladx-reset-btn">Сбросить</button>
+        </div>
+    </div>
+
+    <!-- ===== СЕКЦИЯ РЕЗУЛЬТАТА ===== -->
+    <!-- Скрыта по умолчанию (display: none в CSS). JavaScript показывает после отправки -->
+    <div class="vladx-result">
+        <div class="vladx-result-message"></div>
+        <div class="vladx-explanation"></div>
+    </div>
+
+    <!-- ===== ПОДСКАЗКИ ===== -->
+    <!-- hints -- поле типа List в Scope.settings -->
+    <div class="vladx-hints">
+        <button class="vladx-hint-btn">Показать подсказку</button>
+        <div class="vladx-hint-text"></div>
+    </div>
+
+    <!-- ===== СТАТИСТИКА ПОПЫТОК И БАЛЛОВ ===== -->
+    <!-- attempts_used (Scope.user_state) / max_attempts (Scope.settings) -->
+    <!-- score_earned (Scope.user_state) / weight (Scope.settings) -->
+    <div class="vladx-attempts-info">
+        <span>Попыток:
+            <strong class="vladx-attempts-used">{self.attempts_used}</strong>
+            из
+            <strong class="vladx-max-attempts">{self.max_attempts}</strong>
+        </span>
+        <span class="vladx-score">Балл:
+            <strong class="vladx-score-value">{self.score_earned}</strong>
+            / {self.weight}
+        </span>
+    </div>
+
+    <!-- ===== СЕКЦИЯ ГОЛОСОВАНИЯ ===== -->
+    <!-- upvotes, downvotes -- Scope.user_state_summary (агрегированные данные всех студентов) -->
+    <!-- voted -- Scope.user_state (флаг конкретного студента) -->
+    <div class="vladx-voting">
+        <span class="vladx-voting-label">Оцените вопрос:</span>
+        <button class="vladx-upvote"
+                title="Голосовать ЗА (Scope.user_state_summary)">
+            &#x1F44D; <span class="vladx-upvote-count">{self.upvotes}</span>
+        </button>
+        <button class="vladx-downvote"
+                title="Голосовать ПРОТИВ (Scope.user_state_summary)">
+            &#x1F44E; <span class="vladx-downvote-count">{self.downvotes}</span>
+        </button>
+        <!-- total_submissions -- Scope.user_state_summary -->
+        <span class="vladx-total-submissions">
+            Всего ответов: <span class="vladx-total-sub-count">{self.total_submissions}</span>
+        </span>
+    </div>
+
+    <!-- ===== СЕКЦИЯ ДОЧЕРНИХ БЛОКОВ ===== -->
+    <!-- Если has_children = True, сюда Python-код вставит отрендеренные дочерние блоки -->
+    <!-- Дочерние блоки рендерятся через self.runtime.render_child() -->
+    <div class="vladx-children">
+        <!-- Содержимое дочерних блоков добавляется программно в student_view -->
+    </div>
+</div>

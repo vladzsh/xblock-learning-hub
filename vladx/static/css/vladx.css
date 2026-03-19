@@ -1,0 +1,446 @@
+/* ============================================================================
+ * CSS для VladX Learning Hub
+ * ============================================================================
+ *
+ * ВАЖНО ДЛЯ XBLOCK-РАЗРАБОТЧИКА:
+ * CSS добавляется во Fragment через метод frag.add_css() в Python-коде.
+ * Все стили на странице будут глобальными, поэтому ОБЯЗАТЕЛЬНО используйте
+ * уникальный префикс для всех CSS-классов (здесь: "vladx-"), чтобы
+ * избежать конфликтов с другими XBlock-ами и стилями платформы.
+ *
+ * Есть два способа добавить CSS:
+ *   frag.add_css(css_string)      -- встроенный CSS (inline)
+ *   frag.add_css_url(url_string)  -- внешний CSS-файл по URL
+ * ============================================================================ */
+
+
+/* === Основной контейнер блока === */
+/* Класс vladx-block оборачивает всё содержимое student_view */
+.vladx-block {
+    font-family: 'Open Sans', Arial, sans-serif;
+    max-width: 700px;
+    margin: 10px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    color: #333;
+}
+
+
+/* === Заголовок блока === */
+.vladx-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0075b4;
+}
+
+.vladx-header h3 {
+    margin: 0;
+    color: #0075b4;
+    font-size: 1.3em;
+}
+
+/* Кнопка переключения режима отображения (compact/full) */
+.vladx-toggle-mode {
+    padding: 4px 12px;
+    font-size: 0.8em;
+    background: #e8e8e8;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.vladx-toggle-mode:hover {
+    background: #d0d0d0;
+}
+
+
+/* === Секция вопроса === */
+.vladx-question {
+    margin-bottom: 15px;
+}
+
+.vladx-question-text {
+    font-size: 1.1em;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #222;
+}
+
+
+/* === Секция ввода ответа === */
+.vladx-answer-section {
+    margin-bottom: 15px;
+}
+
+.vladx-answer-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.vladx-answer-input:focus {
+    outline: none;
+    border-color: #0075b4;
+}
+
+/* Контейнер для кнопок действий */
+.vladx-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Кнопка отправки ответа */
+.vladx-submit-btn {
+    padding: 8px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #0075b4;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.vladx-submit-btn:hover {
+    background-color: #005a8c;
+}
+
+.vladx-submit-btn:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
+
+/* Кнопка сброса */
+.vladx-reset-btn {
+    padding: 8px 20px;
+    font-size: 1em;
+    color: #333;
+    background-color: #e8e8e8;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.vladx-reset-btn:hover {
+    background-color: #d0d0d0;
+}
+
+
+/* === Секция результата (скрыта по умолчанию, показывается после отправки) === */
+.vladx-result {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 4px;
+    display: none; /* Показывается через JavaScript после отправки ответа */
+}
+
+/* Правильный ответ -- зелёный фон */
+.vladx-result.vladx-correct {
+    display: block;
+    background-color: #dff0d8;
+    border: 1px solid #3c763d;
+    color: #3c763d;
+}
+
+/* Неправильный ответ -- красный фон */
+.vladx-result.vladx-incorrect {
+    display: block;
+    background-color: #f2dede;
+    border: 1px solid #a94442;
+    color: #a94442;
+}
+
+/* Ошибка (исчерпаны попытки и т.д.) */
+.vladx-result.vladx-error {
+    display: block;
+    background-color: #fcf8e3;
+    border: 1px solid #8a6d3b;
+    color: #8a6d3b;
+}
+
+/* Пояснение к правильному ответу */
+.vladx-explanation {
+    margin-top: 8px;
+    font-style: italic;
+    font-size: 0.95em;
+}
+
+
+/* === Статистика попыток и баллов === */
+.vladx-attempts-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    background-color: #eef5fa;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.vladx-score {
+    font-weight: bold;
+}
+
+
+/* === Секция голосования (thumbs up / thumbs down) === */
+.vladx-voting {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.vladx-voting-label {
+    color: #666;
+}
+
+/* Кнопки голосования */
+.vladx-upvote,
+.vladx-downvote {
+    padding: 4px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+    font-size: 1em;
+    transition: background-color 0.2s;
+}
+
+.vladx-upvote:hover {
+    background-color: #dff0d8;
+    border-color: #3c763d;
+}
+
+.vladx-downvote:hover {
+    background-color: #f2dede;
+    border-color: #a94442;
+}
+
+/* Счётчики голосов */
+.vladx-upvote .vladx-upvote-count {
+    font-weight: bold;
+    color: #3c763d;
+}
+
+.vladx-downvote .vladx-downvote-count {
+    font-weight: bold;
+    color: #a94442;
+}
+
+/* Общее число ответов */
+.vladx-total-submissions {
+    margin-left: auto;
+    color: #888;
+    font-size: 0.85em;
+}
+
+
+/* === Подсказки === */
+.vladx-hints {
+    margin-bottom: 15px;
+}
+
+.vladx-hint-btn {
+    padding: 4px 12px;
+    font-size: 0.85em;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #856404;
+}
+
+.vladx-hint-btn:hover {
+    background: #ffeaa7;
+}
+
+.vladx-hint-text {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #fff3cd;
+    border-left: 3px solid #ffc107;
+    border-radius: 0 4px 4px 0;
+    color: #856404;
+    font-size: 0.9em;
+    display: none; /* Показывается через JavaScript */
+}
+
+.vladx-hint-text.vladx-visible {
+    display: block;
+}
+
+
+/* === Секция дочерних блоков === */
+/* Дочерние блоки рендерятся через self.runtime.render_child() */
+.vladx-children {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+}
+
+.vladx-children:empty {
+    display: none; /* Не показывать пустой контейнер, если дочерних блоков нет */
+}
+
+.vladx-children-title {
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+
+/* ============================================================================
+ * КОМПАКТНЫЙ РЕЖИМ (data-mode="compact")
+ * ============================================================================
+ * Атрибут data-mode переключается через Scope.preferences.
+ * Когда пользователь выбирает компактный режим, скрываются второстепенные
+ * секции, чтобы сэкономить место на экране.
+ * ============================================================================ */
+.vladx-block[data-mode="compact"] .vladx-voting {
+    display: none;
+}
+
+.vladx-block[data-mode="compact"] .vladx-explanation {
+    display: none;
+}
+
+.vladx-block[data-mode="compact"] .vladx-hints {
+    display: none;
+}
+
+.vladx-block[data-mode="compact"] .vladx-children {
+    display: none;
+}
+
+
+/* === Бейдж "Режим автора" (для author_view) === */
+.vladx-author-badge {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 10px;
+    background-color: #5bc0de;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+
+/* === Fallback-представление (для неопределённых view) === */
+.vladx-fallback {
+    padding: 20px;
+    text-align: center;
+    background-color: #fcf8e3;
+    border: 1px solid #faebcc;
+    border-radius: 4px;
+    color: #8a6d3b;
+}
+
+
+/* ============================================================================
+ * СТИЛИ ДЛЯ STUDIO (studio_view)
+ * ============================================================================
+ * Studio -- это приложение Open edX для создания курсов.
+ * Преподаватель редактирует блок через studio_view.
+ * ============================================================================ */
+.vladx-studio-editor {
+    padding: 20px;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.vladx-studio-editor h2 {
+    color: #0075b4;
+    margin-bottom: 20px;
+}
+
+/* Каждое поле редактирования */
+.vladx-studio-field {
+    margin-bottom: 15px;
+}
+
+.vladx-studio-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #444;
+}
+
+/* Подпись с указанием scope -- для обучения */
+.vladx-studio-scope-hint {
+    font-weight: normal;
+    font-size: 0.8em;
+    color: #888;
+    font-style: italic;
+}
+
+.vladx-studio-field input[type="text"],
+.vladx-studio-field input[type="number"],
+.vladx-studio-field textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.95em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.vladx-studio-field textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.vladx-studio-field input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* Кнопки Studio (Сохранить / Отмена) */
+.vladx-studio-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.vladx-studio-save {
+    padding: 8px 24px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #0075b4;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.vladx-studio-save:hover {
+    background-color: #005a8c;
+}
+
+.vladx-studio-cancel {
+    padding: 8px 24px;
+    font-size: 1em;
+    color: #333;
+    background-color: #e8e8e8;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.vladx-studio-cancel:hover {
+    background-color: #d0d0d0;
+}
