@@ -1,21 +1,5 @@
-/* ============================================================================
- * CSS для VladX Learning Hub
- * ============================================================================
- *
- * ВАЖНО ДЛЯ XBLOCK-РАЗРАБОТЧИКА:
- * CSS добавляется во Fragment через метод frag.add_css() в Python-коде.
- * Все стили на странице будут глобальными, поэтому ОБЯЗАТЕЛЬНО используйте
- * уникальный префикс для всех CSS-классов (здесь: "vladx-"), чтобы
- * избежать конфликтов с другими XBlock-ами и стилями платформы.
- *
- * Есть два способа добавить CSS:
- *   frag.add_css(css_string)      -- встроенный CSS (inline)
- *   frag.add_css_url(url_string)  -- внешний CSS-файл по URL
- * ============================================================================ */
+/* CSS for VladX Learning Hub */
 
-
-/* === Основной контейнер блока === */
-/* Класс vladx-block оборачивает всё содержимое student_view */
 .vladx-block {
     font-family: 'Open Sans', Arial, sans-serif;
     max-width: 700px;
@@ -27,8 +11,6 @@
     color: #333;
 }
 
-
-/* === Заголовок блока === */
 .vladx-header {
     display: flex;
     justify-content: space-between;
@@ -44,7 +26,6 @@
     font-size: 1.3em;
 }
 
-/* Кнопка переключения режима отображения (compact/full) */
 .vladx-toggle-mode {
     padding: 4px 12px;
     font-size: 0.8em;
@@ -58,8 +39,6 @@
     background: #d0d0d0;
 }
 
-
-/* === Секция вопроса === */
 .vladx-question {
     margin-bottom: 15px;
 }
@@ -71,8 +50,6 @@
     color: #222;
 }
 
-
-/* === Секция ввода ответа === */
 .vladx-answer-section {
     margin-bottom: 15px;
 }
@@ -92,14 +69,12 @@
     border-color: #0075b4;
 }
 
-/* Контейнер для кнопок действий */
 .vladx-buttons {
     margin-top: 10px;
     display: flex;
     gap: 10px;
 }
 
-/* Кнопка отправки ответа */
 .vladx-submit-btn {
     padding: 8px 20px;
     font-size: 1em;
@@ -111,16 +86,9 @@
     transition: background-color 0.2s;
 }
 
-.vladx-submit-btn:hover {
-    background-color: #005a8c;
-}
+.vladx-submit-btn:hover { background-color: #005a8c; }
+.vladx-submit-btn:disabled { background-color: #999; cursor: not-allowed; }
 
-.vladx-submit-btn:disabled {
-    background-color: #999;
-    cursor: not-allowed;
-}
-
-/* Кнопка сброса */
 .vladx-reset-btn {
     padding: 8px 20px;
     font-size: 1em;
@@ -132,20 +100,15 @@
     transition: background-color 0.2s;
 }
 
-.vladx-reset-btn:hover {
-    background-color: #d0d0d0;
-}
+.vladx-reset-btn:hover { background-color: #d0d0d0; }
 
-
-/* === Секция результата (скрыта по умолчанию, показывается после отправки) === */
 .vladx-result {
     margin-bottom: 15px;
     padding: 12px;
     border-radius: 4px;
-    display: none; /* Показывается через JavaScript после отправки ответа */
+    display: none;
 }
 
-/* Правильный ответ -- зелёный фон */
 .vladx-result.vladx-correct {
     display: block;
     background-color: #dff0d8;
@@ -153,7 +116,6 @@
     color: #3c763d;
 }
 
-/* Неправильный ответ -- красный фон */
 .vladx-result.vladx-incorrect {
     display: block;
     background-color: #f2dede;
@@ -161,7 +123,6 @@
     color: #a94442;
 }
 
-/* Ошибка (исчерпаны попытки и т.д.) */
 .vladx-result.vladx-error {
     display: block;
     background-color: #fcf8e3;
@@ -169,15 +130,12 @@
     color: #8a6d3b;
 }
 
-/* Пояснение к правильному ответу */
 .vladx-explanation {
     margin-top: 8px;
     font-style: italic;
     font-size: 0.95em;
 }
 
-
-/* === Статистика попыток и баллов === */
 .vladx-attempts-info {
     display: flex;
     justify-content: space-between;
@@ -189,12 +147,8 @@
     color: #555;
 }
 
-.vladx-score {
-    font-weight: bold;
-}
+.vladx-score { font-weight: bold; }
 
-
-/* === Секция голосования (thumbs up / thumbs down) === */
 .vladx-voting {
     display: flex;
     align-items: center;
@@ -206,11 +160,8 @@
     font-size: 0.9em;
 }
 
-.vladx-voting-label {
-    color: #666;
-}
+.vladx-voting-label { color: #666; }
 
-/* Кнопки голосования */
 .vladx-upvote,
 .vladx-downvote {
     padding: 4px 12px;
@@ -222,39 +173,19 @@
     transition: background-color 0.2s;
 }
 
-.vladx-upvote:hover {
-    background-color: #dff0d8;
-    border-color: #3c763d;
-}
+.vladx-upvote:hover { background-color: #dff0d8; border-color: #3c763d; }
+.vladx-downvote:hover { background-color: #f2dede; border-color: #a94442; }
 
-.vladx-downvote:hover {
-    background-color: #f2dede;
-    border-color: #a94442;
-}
+.vladx-upvote .vladx-upvote-count { font-weight: bold; color: #3c763d; }
+.vladx-downvote .vladx-downvote-count { font-weight: bold; color: #a94442; }
 
-/* Счётчики голосов */
-.vladx-upvote .vladx-upvote-count {
-    font-weight: bold;
-    color: #3c763d;
-}
-
-.vladx-downvote .vladx-downvote-count {
-    font-weight: bold;
-    color: #a94442;
-}
-
-/* Общее число ответов */
 .vladx-total-submissions {
     margin-left: auto;
     color: #888;
     font-size: 0.85em;
 }
 
-
-/* === Подсказки === */
-.vladx-hints {
-    margin-bottom: 15px;
-}
+.vladx-hints { margin-bottom: 15px; }
 
 .vladx-hint-btn {
     padding: 4px 12px;
@@ -266,9 +197,7 @@
     color: #856404;
 }
 
-.vladx-hint-btn:hover {
-    background: #ffeaa7;
-}
+.vladx-hint-btn:hover { background: #ffeaa7; }
 
 .vladx-hint-text {
     margin-top: 8px;
@@ -278,25 +207,18 @@
     border-radius: 0 4px 4px 0;
     color: #856404;
     font-size: 0.9em;
-    display: none; /* Показывается через JavaScript */
+    display: none;
 }
 
-.vladx-hint-text.vladx-visible {
-    display: block;
-}
+.vladx-hint-text.vladx-visible { display: block; }
 
-
-/* === Секция дочерних блоков === */
-/* Дочерние блоки рендерятся через self.runtime.render_child() */
 .vladx-children {
     margin-top: 15px;
     padding-top: 10px;
     border-top: 1px dashed #ccc;
 }
 
-.vladx-children:empty {
-    display: none; /* Не показывать пустой контейнер, если дочерних блоков нет */
-}
+.vladx-children:empty { display: none; }
 
 .vladx-children-title {
     font-size: 0.9em;
@@ -304,32 +226,12 @@
     margin-bottom: 8px;
 }
 
+/* Compact mode */
+.vladx-block[data-mode="compact"] .vladx-voting { display: none; }
+.vladx-block[data-mode="compact"] .vladx-explanation { display: none; }
+.vladx-block[data-mode="compact"] .vladx-hints { display: none; }
+.vladx-block[data-mode="compact"] .vladx-children { display: none; }
 
-/* ============================================================================
- * КОМПАКТНЫЙ РЕЖИМ (data-mode="compact")
- * ============================================================================
- * Атрибут data-mode переключается через Scope.preferences.
- * Когда пользователь выбирает компактный режим, скрываются второстепенные
- * секции, чтобы сэкономить место на экране.
- * ============================================================================ */
-.vladx-block[data-mode="compact"] .vladx-voting {
-    display: none;
-}
-
-.vladx-block[data-mode="compact"] .vladx-explanation {
-    display: none;
-}
-
-.vladx-block[data-mode="compact"] .vladx-hints {
-    display: none;
-}
-
-.vladx-block[data-mode="compact"] .vladx-children {
-    display: none;
-}
-
-
-/* === Бейдж "Режим автора" (для author_view) === */
 .vladx-author-badge {
     display: inline-block;
     margin-top: 10px;
@@ -341,8 +243,6 @@
     font-weight: bold;
 }
 
-
-/* === Fallback-представление (для неопределённых view) === */
 .vladx-fallback {
     padding: 20px;
     text-align: center;
@@ -352,13 +252,7 @@
     color: #8a6d3b;
 }
 
-
-/* ============================================================================
- * СТИЛИ ДЛЯ STUDIO (studio_view)
- * ============================================================================
- * Studio -- это приложение Open edX для создания курсов.
- * Преподаватель редактирует блок через studio_view.
- * ============================================================================ */
+/* Studio editor */
 .vladx-studio-editor {
     padding: 20px;
     font-family: 'Open Sans', Arial, sans-serif;
@@ -369,10 +263,7 @@
     margin-bottom: 20px;
 }
 
-/* Каждое поле редактирования */
-.vladx-studio-field {
-    margin-bottom: 15px;
-}
+.vladx-studio-field { margin-bottom: 15px; }
 
 .vladx-studio-field label {
     display: block;
@@ -382,7 +273,6 @@
     color: #444;
 }
 
-/* Подпись с указанием scope -- для обучения */
 .vladx-studio-scope-hint {
     font-weight: normal;
     font-size: 0.8em;
@@ -401,16 +291,9 @@
     box-sizing: border-box;
 }
 
-.vladx-studio-field textarea {
-    min-height: 80px;
-    resize: vertical;
-}
+.vladx-studio-field textarea { min-height: 80px; resize: vertical; }
+.vladx-studio-field input[type="checkbox"] { margin-right: 8px; }
 
-.vladx-studio-field input[type="checkbox"] {
-    margin-right: 8px;
-}
-
-/* Кнопки Studio (Сохранить / Отмена) */
 .vladx-studio-buttons {
     margin-top: 20px;
     display: flex;
@@ -427,9 +310,7 @@
     cursor: pointer;
 }
 
-.vladx-studio-save:hover {
-    background-color: #005a8c;
-}
+.vladx-studio-save:hover { background-color: #005a8c; }
 
 .vladx-studio-cancel {
     padding: 8px 24px;
@@ -441,6 +322,4 @@
     cursor: pointer;
 }
 
-.vladx-studio-cancel:hover {
-    background-color: #d0d0d0;
-}
+.vladx-studio-cancel:hover { background-color: #d0d0d0; }

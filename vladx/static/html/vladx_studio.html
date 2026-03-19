@@ -1,97 +1,47 @@
-<!-- ========================================================================
-     HTML-шаблон представления Studio (studio_view) VladX Learning Hub
-
-     ВАЖНО ДЛЯ XBLOCK-РАЗРАБОТЧИКА:
-     Studio -- приложение Open edX для создания и редактирования курсов.
-     Преподаватель видит этот интерфейс, когда нажимает "Редактировать" (Edit)
-     на компоненте в Studio.
-
-     Представление studio_view должно:
-     1. Показать форму редактирования полей блока
-     2. При нажатии "Сохранить" -- отправить данные на сервер через AJAX
-     3. Вызвать runtime.notify('save', {{state: 'end'}}) -- чтобы Studio закрыл окно
-     4. При нажатии "Отмена" -- вызвать runtime.notify('cancel', {{}})
-
-     Плейсхолдеры {{self.field_name}} заменяются значениями полей через .format(self=self)
-     ======================================================================== -->
-
 <div class="vladx-studio-editor">
 
-    <h2>Настройки VladX Learning Hub</h2>
-
-    <!-- ===== ПОЛЯ Scope.settings ===== -->
-    <!-- Эти поля настраиваются для конкретного использования блока в курсе -->
+    <h2>VladX Learning Hub Settings</h2>
 
     <div class="vladx-studio-field">
-        <label for="vladx-display-name">
-            Название компонента
-            <span class="vladx-studio-scope-hint">(display_name, Scope.settings)</span>
-        </label>
+        <label for="vladx-display-name">Component name</label>
         <input type="text" id="vladx-display-name" value="{self.display_name}" />
     </div>
 
-    <!-- ===== ПОЛЯ Scope.content ===== -->
-    <!-- Эти поля определяют содержимое блока, общее для всех запусков курса -->
-
     <div class="vladx-studio-field">
-        <label for="vladx-question">
-            Текст вопроса
-            <span class="vladx-studio-scope-hint">(question_text, Scope.content)</span>
-        </label>
+        <label for="vladx-question">Question text</label>
         <textarea id="vladx-question">{self.question_text}</textarea>
     </div>
 
     <div class="vladx-studio-field">
-        <label for="vladx-correct-answer">
-            Правильный ответ
-            <span class="vladx-studio-scope-hint">(correct_answer, Scope.content)</span>
-        </label>
+        <label for="vladx-correct-answer">Correct answer</label>
         <input type="text" id="vladx-correct-answer" value="{self.correct_answer}" />
     </div>
 
     <div class="vladx-studio-field">
-        <label for="vladx-explanation">
-            Пояснение к ответу
-            <span class="vladx-studio-scope-hint">(explanation, Scope.content)</span>
-        </label>
+        <label for="vladx-explanation">Explanation</label>
         <textarea id="vladx-explanation">{self.explanation}</textarea>
     </div>
 
-    <!-- ===== ЧИСЛОВЫЕ ПОЛЯ Scope.settings ===== -->
-
     <div class="vladx-studio-field">
-        <label for="vladx-max-attempts">
-            Максимум попыток
-            <span class="vladx-studio-scope-hint">(max_attempts, Integer, Scope.settings)</span>
-        </label>
+        <label for="vladx-max-attempts">Max attempts</label>
         <input type="number" id="vladx-max-attempts" value="{self.max_attempts}" min="1" />
     </div>
 
     <div class="vladx-studio-field">
-        <label for="vladx-weight">
-            Вес задания
-            <span class="vladx-studio-scope-hint">(weight, Float, Scope.settings)</span>
-        </label>
+        <label for="vladx-weight">Weight</label>
         <input type="number" id="vladx-weight" value="{self.weight}" min="0.1" step="0.1" />
     </div>
 
-    <!-- ===== БУЛЕВО ПОЛЕ Scope.settings ===== -->
-
     <div class="vladx-studio-field">
         <label>
-            <!-- data-value используется для корректной инициализации checkbox в JS -->
             <input type="checkbox" id="vladx-allow-reset" data-value="{self.allow_reset}" />
-            Разрешить сброс ответа
-            <span class="vladx-studio-scope-hint">(allow_reset, Boolean, Scope.settings)</span>
+            Allow answer reset
         </label>
     </div>
 
-    <!-- ===== КНОПКИ СОХРАНЕНИЯ / ОТМЕНЫ ===== -->
-    <!-- При сохранении JS вызывает обработчик save_settings, затем runtime.notify('save') -->
-    <!-- При отмене JS вызывает runtime.notify('cancel') -->
     <div class="vladx-studio-buttons">
-        <button class="vladx-studio-save">Сохранить</button>
-        <button class="vladx-studio-cancel">Отмена</button>
+        <button class="vladx-studio-save">Save</button>
+        <button class="vladx-studio-cancel">Cancel</button>
     </div>
 
 </div>
