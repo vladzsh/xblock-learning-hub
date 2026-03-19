@@ -2,20 +2,20 @@
  * CSS для VladX Learning Hub
  * ============================================================================
  *
- * ВАЖНО ДЛЯ XBLOCK-РАЗРАБОТЧИКА:
- * CSS добавляется во Fragment через метод frag.add_css() в Python-коде.
- * Все стили на странице будут глобальными, поэтому ОБЯЗАТЕЛЬНО используйте
- * уникальный префикс для всех CSS-классов (здесь: "vladx-"), чтобы
- * избежать конфликтов с другими XBlock-ами и стилями платформы.
+ * ВАЖЛИВО ДЛЯ XBLOCK-РОЗРОБНИКА:
+ * CSS додається до Fragment через метод frag.add_css() в Python-коді.
+ * Усі стилі на сторінці будуть глобальними, тому ОБОВ'ЯЗКОВО використовуйте
+ * унікальний префікс для всіх CSS-класів (тут: "vladx-"), щоб
+ * уникнути конфліктів з іншими XBlock-ами та стилями платформи.
  *
- * Есть два способа добавить CSS:
- *   frag.add_css(css_string)      -- встроенный CSS (inline)
- *   frag.add_css_url(url_string)  -- внешний CSS-файл по URL
+ * Є два способи додати CSS:
+ *   frag.add_css(css_string)      -- вбудований CSS (inline)
+ *   frag.add_css_url(url_string)  -- зовнішній CSS-файл за URL
  * ============================================================================ */
 
 
-/* === Основной контейнер блока === */
-/* Класс vladx-block оборачивает всё содержимое student_view */
+/* === Основний контейнер блоку === */
+/* Клас vladx-block обгортає весь вміст student_view */
 .vladx-block {
     font-family: 'Open Sans', Arial, sans-serif;
     max-width: 700px;
@@ -28,7 +28,7 @@
 }
 
 
-/* === Заголовок блока === */
+/* === Заголовок блоку === */
 .vladx-header {
     display: flex;
     justify-content: space-between;
@@ -44,7 +44,7 @@
     font-size: 1.3em;
 }
 
-/* Кнопка переключения режима отображения (compact/full) */
+/* Кнопка перемикання режиму відображення (compact/full) */
 .vladx-toggle-mode {
     padding: 4px 12px;
     font-size: 0.8em;
@@ -59,7 +59,7 @@
 }
 
 
-/* === Секция вопроса === */
+/* === Секція питання === */
 .vladx-question {
     margin-bottom: 15px;
 }
@@ -72,7 +72,7 @@
 }
 
 
-/* === Секция ввода ответа === */
+/* === Секція введення відповіді === */
 .vladx-answer-section {
     margin-bottom: 15px;
 }
@@ -92,14 +92,14 @@
     border-color: #0075b4;
 }
 
-/* Контейнер для кнопок действий */
+/* Контейнер для кнопок дій */
 .vladx-buttons {
     margin-top: 10px;
     display: flex;
     gap: 10px;
 }
 
-/* Кнопка отправки ответа */
+/* Кнопка надсилання відповіді */
 .vladx-submit-btn {
     padding: 8px 20px;
     font-size: 1em;
@@ -120,7 +120,7 @@
     cursor: not-allowed;
 }
 
-/* Кнопка сброса */
+/* Кнопка скидання */
 .vladx-reset-btn {
     padding: 8px 20px;
     font-size: 1em;
@@ -137,15 +137,15 @@
 }
 
 
-/* === Секция результата (скрыта по умолчанию, показывается после отправки) === */
+/* === Секція результату (прихована за замовчуванням, показується після надсилання) === */
 .vladx-result {
     margin-bottom: 15px;
     padding: 12px;
     border-radius: 4px;
-    display: none; /* Показывается через JavaScript после отправки ответа */
+    display: none; /* Показується через JavaScript після надсилання відповіді */
 }
 
-/* Правильный ответ -- зелёный фон */
+/* Правильна відповідь -- зелений фон */
 .vladx-result.vladx-correct {
     display: block;
     background-color: #dff0d8;
@@ -153,7 +153,7 @@
     color: #3c763d;
 }
 
-/* Неправильный ответ -- красный фон */
+/* Неправильна відповідь -- червоний фон */
 .vladx-result.vladx-incorrect {
     display: block;
     background-color: #f2dede;
@@ -161,7 +161,7 @@
     color: #a94442;
 }
 
-/* Ошибка (исчерпаны попытки и т.д.) */
+/* Помилка (вичерпано спроби тощо) */
 .vladx-result.vladx-error {
     display: block;
     background-color: #fcf8e3;
@@ -169,7 +169,7 @@
     color: #8a6d3b;
 }
 
-/* Пояснение к правильному ответу */
+/* Пояснення до правильної відповіді */
 .vladx-explanation {
     margin-top: 8px;
     font-style: italic;
@@ -177,7 +177,7 @@
 }
 
 
-/* === Статистика попыток и баллов === */
+/* === Статистика спроб та балів === */
 .vladx-attempts-info {
     display: flex;
     justify-content: space-between;
@@ -194,7 +194,7 @@
 }
 
 
-/* === Секция голосования (thumbs up / thumbs down) === */
+/* === Секція голосування (thumbs up / thumbs down) === */
 .vladx-voting {
     display: flex;
     align-items: center;
@@ -210,7 +210,7 @@
     color: #666;
 }
 
-/* Кнопки голосования */
+/* Кнопки голосування */
 .vladx-upvote,
 .vladx-downvote {
     padding: 4px 12px;
@@ -232,7 +232,7 @@
     border-color: #a94442;
 }
 
-/* Счётчики голосов */
+/* Лічильники голосів */
 .vladx-upvote .vladx-upvote-count {
     font-weight: bold;
     color: #3c763d;
@@ -243,7 +243,7 @@
     color: #a94442;
 }
 
-/* Общее число ответов */
+/* Загальна кількість відповідей */
 .vladx-total-submissions {
     margin-left: auto;
     color: #888;
@@ -251,7 +251,7 @@
 }
 
 
-/* === Подсказки === */
+/* === Підказки === */
 .vladx-hints {
     margin-bottom: 15px;
 }
@@ -278,7 +278,7 @@
     border-radius: 0 4px 4px 0;
     color: #856404;
     font-size: 0.9em;
-    display: none; /* Показывается через JavaScript */
+    display: none; /* Показується через JavaScript */
 }
 
 .vladx-hint-text.vladx-visible {
@@ -286,8 +286,8 @@
 }
 
 
-/* === Секция дочерних блоков === */
-/* Дочерние блоки рендерятся через self.runtime.render_child() */
+/* === Секція дочірніх блоків === */
+/* Дочірні блоки рендеряться через self.runtime.render_child() */
 .vladx-children {
     margin-top: 15px;
     padding-top: 10px;
@@ -295,7 +295,7 @@
 }
 
 .vladx-children:empty {
-    display: none; /* Не показывать пустой контейнер, если дочерних блоков нет */
+    display: none; /* Не показувати порожній контейнер, якщо дочірніх блоків немає */
 }
 
 .vladx-children-title {
@@ -306,11 +306,11 @@
 
 
 /* ============================================================================
- * КОМПАКТНЫЙ РЕЖИМ (data-mode="compact")
+ * КОМПАКТНИЙ РЕЖИМ (data-mode="compact")
  * ============================================================================
- * Атрибут data-mode переключается через Scope.preferences.
- * Когда пользователь выбирает компактный режим, скрываются второстепенные
- * секции, чтобы сэкономить место на экране.
+ * Атрибут data-mode перемикається через Scope.preferences.
+ * Коли користувач обирає компактний режим, приховуються другорядні
+ * секції, щоб заощадити місце на екрані.
  * ============================================================================ */
 .vladx-block[data-mode="compact"] .vladx-voting {
     display: none;
@@ -342,7 +342,7 @@
 }
 
 
-/* === Fallback-представление (для неопределённых view) === */
+/* === Fallback-представлення (для невизначених view) === */
 .vladx-fallback {
     padding: 20px;
     text-align: center;
@@ -354,10 +354,10 @@
 
 
 /* ============================================================================
- * СТИЛИ ДЛЯ STUDIO (studio_view)
+ * СТИЛІ ДЛЯ STUDIO (studio_view)
  * ============================================================================
- * Studio -- это приложение Open edX для создания курсов.
- * Преподаватель редактирует блок через studio_view.
+ * Studio -- це застосунок Open edX для створення курсів.
+ * Викладач редагує блок через studio_view.
  * ============================================================================ */
 .vladx-studio-editor {
     padding: 20px;
@@ -369,7 +369,7 @@
     margin-bottom: 20px;
 }
 
-/* Каждое поле редактирования */
+/* Кожне поле редагування */
 .vladx-studio-field {
     margin-bottom: 15px;
 }
@@ -382,7 +382,7 @@
     color: #444;
 }
 
-/* Подпись с указанием scope -- для обучения */
+/* Підпис із зазначенням scope -- для навчання */
 .vladx-studio-scope-hint {
     font-weight: normal;
     font-size: 0.8em;
@@ -410,7 +410,7 @@
     margin-right: 8px;
 }
 
-/* Кнопки Studio (Сохранить / Отмена) */
+/* Кнопки Studio (Зберегти / Скасувати) */
 .vladx-studio-buttons {
     margin-top: 20px;
     display: flex;

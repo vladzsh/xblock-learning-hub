@@ -1,73 +1,73 @@
 /* ============================================================================
- * JavaScript для студенческого представления (student_view) VladX Learning Hub
+ * JavaScript для студентського представлення (student_view) VladX Learning Hub
  * ============================================================================
  *
- * ВАЖНО ДЛЯ XBLOCK-РАЗРАБОТЧИКА:
+ * ВАЖЛИВО ДЛЯ XBLOCK-РОЗРОБНИКА:
  *
- * 1. Этот файл добавляется во Fragment через frag.add_javascript() в Python.
+ * 1. Цей файл додається до Fragment через frag.add_javascript() в Python.
  *
- * 2. Функция VladXBlock(runtime, element) вызывается автоматически благодаря
- *    frag.initialize_js('VladXBlock') в Python-коде.
- *    Имя функции ДОЛЖНО совпадать с аргументом initialize_js().
+ * 2. Функція VladXBlock(runtime, element) викликається автоматично завдяки
+ *    frag.initialize_js('VladXBlock') в Python-коді.
+ *    Ім'я функції ПОВИННО збігатися з аргументом initialize_js().
  *
- * 3. Аргументы функции инициализации:
- *    - runtime  -- объект среды выполнения XBlock (предоставляется платформой)
- *    - element  -- DOM-элемент, содержащий HTML-содержимое этого блока
+ * 3. Аргументи функції ініціалізації:
+ *    - runtime  -- об'єкт середовища виконання XBlock (надається платформою)
+ *    - element  -- DOM-елемент, що містить HTML-вміст цього блоку
  *
- * 4. runtime предоставляет ключевые методы:
- *    - runtime.handlerUrl(element, 'handler_name') -- создаёт URL для AJAX-запроса
- *      к серверному обработчику. Это ЕДИНСТВЕННЫЙ способ общения JS с Python.
- *    - runtime.children(element) -- возвращает список дочерних блоков
- *    - runtime.childMap(element, 'child_name') -- находит дочерний блок по имени
+ * 4. runtime надає ключові методи:
+ *    - runtime.handlerUrl(element, 'handler_name') -- створює URL для AJAX-запиту
+ *      до серверного обробника. Це ЄДИНИЙ спосіб спілкування JS з Python.
+ *    - runtime.children(element) -- повертає список дочірніх блоків
+ *    - runtime.childMap(element, 'child_name') -- знаходить дочірній блок за іменем
  *
- * 5. jQuery ($) доступен глобально в среде XBlock Workbench и Open edX.
- *    ВСЕГДА используйте $(selector, element) -- второй аргумент element
- *    ограничивает поиск DOM-элементов текущим блоком. Без этого селектор
- *    найдёт элементы ВСЕХ блоков на странице!
+ * 5. jQuery ($) доступний глобально в середовищі XBlock Workbench та Open edX.
+ *    ЗАВЖДИ використовуйте $(selector, element) -- другий аргумент element
+ *    обмежує пошук DOM-елементів поточним блоком. Без цього селектор
+ *    знайде елементи ВСІХ блоків на сторінці!
  *
- * 6. AJAX-запросы к обработчикам ВСЕГДА используют метод POST.
- *    Данные передаются как JSON.stringify({...}).
- *    @XBlock.json_handler автоматически парсит JSON и возвращает JSON.
+ * 6. AJAX-запити до обробників ЗАВЖДИ використовують метод POST.
+ *    Дані передаються як JSON.stringify({...}).
+ *    @XBlock.json_handler автоматично парсить JSON та повертає JSON.
  * ============================================================================ */
 
 function VladXBlock(runtime, element) {
 
     /* ====================================================================
-     * ПОЛУЧЕНИЕ URL-ов СЕРВЕРНЫХ ОБРАБОТЧИКОВ
+     * ОТРИМАННЯ URL-ів СЕРВЕРНИХ ОБРОБНИКІВ
      * ====================================================================
-     * runtime.handlerUrl() генерирует полный URL для каждого обработчика.
-     * Формат URL зависит от runtime-а:
+     * runtime.handlerUrl() генерує повний URL для кожного обробника.
+     * Формат URL залежить від runtime-у:
      *   Workbench: /handler/{usage_id}/{handler_name}/
      *   LMS:       /courses/{course}/xblock/{usage}/handler/{handler_name}
      * ==================================================================== */
-    /* Кэшируем jQuery-обёртку для удобства */
+    /* Кешуємо jQuery-обгортку для зручності */
     var $element = $(element);
 
-    /* URL обработчика отправки ответа (@XBlock.json_handler submit_answer) */
+    /* URL обробника надсилання відповіді (@XBlock.json_handler submit_answer) */
     var submitUrl = runtime.handlerUrl(element, 'submit_answer');
 
-    /* URL обработчика голосования (@XBlock.json_handler vote) */
+    /* URL обробника голосування (@XBlock.json_handler vote) */
     var voteUrl = runtime.handlerUrl(element, 'vote');
 
-    /* URL обработчика получения состояния (@XBlock.json_handler get_state) */
+    /* URL обробника отримання стану (@XBlock.json_handler get_state) */
     var getStateUrl = runtime.handlerUrl(element, 'get_state');
 
-    /* URL обработчика переключения режима (@XBlock.json_handler toggle_display_mode) */
+    /* URL обробника перемикання режиму (@XBlock.json_handler toggle_display_mode) */
     var toggleModeUrl = runtime.handlerUrl(element, 'toggle_display_mode');
 
-    /* URL обработчика сброса ответа (@XBlock.json_handler reset_answer) */
+    /* URL обробника скидання відповіді (@XBlock.json_handler reset_answer) */
     var resetUrl = runtime.handlerUrl(element, 'reset_answer');
 
-    /* URL обработчика показа подсказки (@XBlock.json_handler show_hint) */
+    /* URL обробника показу підказки (@XBlock.json_handler show_hint) */
     var hintUrl = runtime.handlerUrl(element, 'show_hint');
 
     /* ====================================================================
-     * ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ОБНОВЛЕНИЯ ИНТЕРФЕЙСА
+     * ДОПОМІЖНІ ФУНКЦІЇ ОНОВЛЕННЯ ІНТЕРФЕЙСУ
      * ==================================================================== */
 
     /**
-     * Обновить отображение счётчика попыток и баллов.
-     * Вызывается после каждого действия, изменяющего состояние.
+     * Оновити відображення лічильника спроб та балів.
+     * Викликається після кожної дії, що змінює стан.
      */
     function updateAttemptsAndScore(data) {
         if (data.attempts_used !== undefined) {
@@ -88,36 +88,36 @@ function VladXBlock(runtime, element) {
     }
 
     /**
-     * Обновить отображение результата (правильно/неправильно/ошибка).
+     * Оновити відображення результату (правильно/неправильно/помилка).
      */
     function showResult(data) {
         var $result = $('.vladx-result', element);
         var $message = $('.vladx-result-message', element);
         var $explanation = $('.vladx-explanation', element);
 
-        /* Сбросить все CSS-классы результата */
+        /* Скинути всі CSS-класи результату */
         $result.removeClass('vladx-correct vladx-incorrect vladx-error');
 
         if (data.error) {
-            /* Ошибка (например, исчерпаны попытки) */
+            /* Помилка (наприклад, вичерпано спроби) */
             $result.addClass('vladx-error');
             $message.text(data.error);
             $explanation.text('');
         } else if (data.is_correct) {
-            /* Правильный ответ */
+            /* Правильна відповідь */
             $result.addClass('vladx-correct');
             $message.text('Правильно!');
             $explanation.text(data.explanation || '');
         } else {
-            /* Неправильный ответ */
+            /* Неправильна відповідь */
             $result.addClass('vladx-incorrect');
-            $message.text('Неправильно. Попробуйте ещё раз.');
+            $message.text('Неправильно. Спробуйте ще раз.');
             $explanation.text('');
         }
     }
 
     /**
-     * Обновить счётчики голосов.
+     * Оновити лічильники голосів.
      */
     function updateVotes(data) {
         $('.vladx-upvote-count', element).text(data.upvotes);
@@ -125,32 +125,32 @@ function VladXBlock(runtime, element) {
     }
 
     /* ====================================================================
-     * ОБРАБОТЧИКИ СОБЫТИЙ ПОЛЬЗОВАТЕЛЬСКОГО ИНТЕРФЕЙСА
+     * ОБРОБНИКИ ПОДІЙ КОРИСТУВАЦЬКОГО ІНТЕРФЕЙСУ
      * ====================================================================
-     * Каждый обработчик отправляет AJAX POST-запрос к серверному обработчику
-     * и обновляет UI при успешном ответе.
+     * Кожний обробник надсилає AJAX POST-запит до серверного обробника
+     * та оновлює UI при успішній відповіді.
      * ==================================================================== */
 
     /**
-     * ОТПРАВКА ОТВЕТА
-     * Нажатие кнопки "Отправить" -> POST на submit_answer -> обновление UI
+     * НАДСИЛАННЯ ВІДПОВІДІ
+     * Натискання кнопки "Надіслати" -> POST на submit_answer -> оновлення UI
      */
     $('.vladx-submit-btn', element).on('click', function() {
-        /* Получаем текст ответа из поля ввода */
+        /* Отримуємо текст відповіді з поля введення */
         var answer = $('.vladx-answer-input', element).val();
 
         $.ajax({
-            type: "POST",                              /* Обязательно POST для XBlock-обработчиков */
-            url: submitUrl,                            /* URL, полученный от runtime.handlerUrl() */
-            data: JSON.stringify({ answer: answer }),   /* Данные ВСЕГДА как JSON-строка */
+            type: "POST",                              /* Обов'язково POST для XBlock-обробників */
+            url: submitUrl,                            /* URL, отриманий від runtime.handlerUrl() */
+            data: JSON.stringify({ answer: answer }),   /* Дані ЗАВЖДИ як JSON-рядок */
             success: function(response) {
-                /* response -- JSON-объект, возвращённый @XBlock.json_handler */
+                /* response -- JSON-об'єкт, повернутий @XBlock.json_handler */
                 if (response.success) {
                     showResult(response);
                     updateAttemptsAndScore(response);
-                    /* Обновляем total_submissions */
+                    /* Оновлюємо total_submissions */
                     $('.vladx-total-sub-count', element).text(response.total_submissions);
-                    /* Блокируем кнопку, если попытки исчерпаны */
+                    /* Блокуємо кнопку, якщо спроби вичерпано */
                     if (response.attempts_used >= response.max_attempts) {
                         $('.vladx-submit-btn', element).prop('disabled', true);
                     }
@@ -162,8 +162,8 @@ function VladXBlock(runtime, element) {
     });
 
     /**
-     * ГОЛОСОВАНИЕ "ЗА"
-     * Нажатие кнопки thumbs-up -> POST на vote с vote_type='up'
+     * ГОЛОСУВАННЯ "ЗА"
+     * Натискання кнопки thumbs-up -> POST на vote з vote_type='up'
      */
     $('.vladx-upvote', element).on('click', function() {
         $.ajax({
@@ -179,8 +179,8 @@ function VladXBlock(runtime, element) {
     });
 
     /**
-     * ГОЛОСОВАНИЕ "ПРОТИВ"
-     * Нажатие кнопки thumbs-down -> POST на vote с vote_type='down'
+     * ГОЛОСУВАННЯ "ПРОТИ"
+     * Натискання кнопки thumbs-down -> POST на vote з vote_type='down'
      */
     $('.vladx-downvote', element).on('click', function() {
         $.ajax({
@@ -196,8 +196,8 @@ function VladXBlock(runtime, element) {
     });
 
     /**
-     * ПЕРЕКЛЮЧЕНИЕ РЕЖИМА ОТОБРАЖЕНИЯ
-     * Переключает Scope.preferences между "compact" и "full"
+     * ПЕРЕМИКАННЯ РЕЖИМУ ВІДОБРАЖЕННЯ
+     * Перемикає Scope.preferences між "compact" та "full"
      */
     $('.vladx-toggle-mode', element).on('click', function() {
         $.ajax({
@@ -205,17 +205,17 @@ function VladXBlock(runtime, element) {
             url: toggleModeUrl,
             data: JSON.stringify({}),
             success: function(response) {
-                /* Обновляем data-атрибут, который управляет CSS-стилями */
+                /* Оновлюємо data-атрибут, який керує CSS-стилями */
                 $('.vladx-block', element).attr('data-mode', response.display_mode);
-                /* Обновляем текст кнопки */
+                /* Оновлюємо текст кнопки */
                 $('.vladx-toggle-mode', element).text(response.display_mode);
             }
         });
     });
 
     /**
-     * СБРОС ОТВЕТА
-     * Очищает ответ студента и сбрасывает попытки
+     * СКИДАННЯ ВІДПОВІДІ
+     * Очищає відповідь студента та скидає спроби
      */
     $('.vladx-reset-btn', element).on('click', function() {
         $.ajax({
@@ -224,16 +224,16 @@ function VladXBlock(runtime, element) {
             data: JSON.stringify({}),
             success: function(response) {
                 if (response.success) {
-                    /* Очищаем поле ввода */
+                    /* Очищаємо поле введення */
                     $('.vladx-answer-input', element).val('');
-                    /* Скрываем результат */
+                    /* Приховуємо результат */
                     $('.vladx-result', element).removeClass('vladx-correct vladx-incorrect vladx-error');
-                    /* Сбрасываем счётчики */
+                    /* Скидаємо лічильники */
                     $('.vladx-attempts-used', element).text('0');
                     $('.vladx-score-value', element).text('0.0');
-                    /* Разблокируем кнопку отправки */
+                    /* Розблоковуємо кнопку надсилання */
                     $('.vladx-submit-btn', element).prop('disabled', false);
-                    /* Скрываем подсказку */
+                    /* Приховуємо підказку */
                     $('.vladx-hint-text', element).removeClass('vladx-visible').text('');
                 } else {
                     alert(response.error);
@@ -243,8 +243,8 @@ function VladXBlock(runtime, element) {
     });
 
     /**
-     * ПОКАЗ ПОДСКАЗКИ
-     * Запрашивает следующую подсказку из списка hints (Scope.settings, тип List)
+     * ПОКАЗ ПІДКАЗКИ
+     * Запитує наступну підказку зі списку hints (Scope.settings, тип List)
      */
     $('.vladx-hint-btn', element).on('click', function() {
         $.ajax({
@@ -262,12 +262,12 @@ function VladXBlock(runtime, element) {
     });
 
     /* ====================================================================
-     * ИНИЦИАЛИЗАЦИЯ: ЗАГРУЗКА НАЧАЛЬНОГО СОСТОЯНИЯ
+     * ІНІЦІАЛІЗАЦІЯ: ЗАВАНТАЖЕННЯ ПОЧАТКОВОГО СТАНУ
      * ====================================================================
-     * При загрузке страницы запрашиваем текущее состояние блока,
-     * чтобы корректно отобразить попытки, баллы, режим и т.д.
+     * При завантаженні сторінки запитуємо поточний стан блоку,
+     * щоб коректно відобразити спроби, бали, режим тощо.
      *
-     * $(function() { ... }) -- выполняется после загрузки DOM.
+     * $(function() { ... }) -- виконується після завантаження DOM.
      * ==================================================================== */
     $(function() {
         $.ajax({
@@ -275,15 +275,15 @@ function VladXBlock(runtime, element) {
             url: getStateUrl,
             data: JSON.stringify({}),
             success: function(state) {
-                /* Обновляем все элементы интерфейса по текущему состоянию */
+                /* Оновлюємо всі елементи інтерфейсу за поточним станом */
                 updateAttemptsAndScore(state);
                 updateVotes(state);
 
-                /* Устанавливаем режим отображения */
+                /* Встановлюємо режим відображення */
                 $('.vladx-block', element).attr('data-mode', state.display_mode);
                 $('.vladx-toggle-mode', element).text(state.display_mode);
 
-                /* Блокируем отправку, если попытки исчерпаны */
+                /* Блокуємо надсилання, якщо спроби вичерпано */
                 if (state.attempts_used >= state.max_attempts) {
                     $('.vladx-submit-btn', element).prop('disabled', true);
                 }
@@ -293,7 +293,7 @@ function VladXBlock(runtime, element) {
                     $element.find('.vladx-downvote').prop('disabled', true);
                 }
 
-                /* Если ответ уже был отправлен -- показываем результат */
+                /* Якщо відповідь вже було надіслано -- показуємо результат */
                 if (state.is_submitted && state.student_answer) {
                     $('.vladx-answer-input', element).val(state.student_answer);
                 }

@@ -1,41 +1,41 @@
 <!-- ========================================================================
-     HTML-шаблон представления Studio (studio_view) VladX Learning Hub
+     HTML-шаблон представлення Studio (studio_view) VladX Learning Hub
 
-     ВАЖНО ДЛЯ XBLOCK-РАЗРАБОТЧИКА:
-     Studio -- приложение Open edX для создания и редактирования курсов.
-     Преподаватель видит этот интерфейс, когда нажимает "Редактировать" (Edit)
-     на компоненте в Studio.
+     ВАЖЛИВО ДЛЯ XBLOCK-РОЗРОБНИКА:
+     Studio -- застосунок Open edX для створення та редагування курсів.
+     Викладач бачить цей інтерфейс, коли натискає "Редагувати" (Edit)
+     на компоненті в Studio.
 
-     Представление studio_view должно:
-     1. Показать форму редактирования полей блока
-     2. При нажатии "Сохранить" -- отправить данные на сервер через AJAX
-     3. Вызвать runtime.notify('save', {{state: 'end'}}) -- чтобы Studio закрыл окно
-     4. При нажатии "Отмена" -- вызвать runtime.notify('cancel', {{}})
+     Представлення studio_view повинно:
+     1. Показати форму редагування полів блоку
+     2. При натисканні "Зберегти" -- надіслати дані на сервер через AJAX
+     3. Викликати runtime.notify('save', {{state: 'end'}}) -- щоб Studio закрив вікно
+     4. При натисканні "Скасувати" -- викликати runtime.notify('cancel', {{}})
 
-     Плейсхолдеры {{self.field_name}} заменяются значениями полей через .format(self=self)
+     Плейсхолдери {{self.field_name}} замінюються значеннями полів через .format(self=self)
      ======================================================================== -->
 
 <div class="vladx-studio-editor">
 
-    <h2>Настройки VladX Learning Hub</h2>
+    <h2>Налаштування VladX Learning Hub</h2>
 
     <!-- ===== ПОЛЯ Scope.settings ===== -->
-    <!-- Эти поля настраиваются для конкретного использования блока в курсе -->
+    <!-- Ці поля налаштовуються для конкретного використання блоку в курсі -->
 
     <div class="vladx-studio-field">
         <label for="vladx-display-name">
-            Название компонента
+            Назва компонента
             <span class="vladx-studio-scope-hint">(display_name, Scope.settings)</span>
         </label>
         <input type="text" id="vladx-display-name" value="{self.display_name}" />
     </div>
 
     <!-- ===== ПОЛЯ Scope.content ===== -->
-    <!-- Эти поля определяют содержимое блока, общее для всех запусков курса -->
+    <!-- Ці поля визначають вміст блоку, спільний для всіх запусків курсу -->
 
     <div class="vladx-studio-field">
         <label for="vladx-question">
-            Текст вопроса
+            Текст питання
             <span class="vladx-studio-scope-hint">(question_text, Scope.content)</span>
         </label>
         <textarea id="vladx-question">{self.question_text}</textarea>
@@ -43,7 +43,7 @@
 
     <div class="vladx-studio-field">
         <label for="vladx-correct-answer">
-            Правильный ответ
+            Правильна відповідь
             <span class="vladx-studio-scope-hint">(correct_answer, Scope.content)</span>
         </label>
         <input type="text" id="vladx-correct-answer" value="{self.correct_answer}" />
@@ -51,17 +51,17 @@
 
     <div class="vladx-studio-field">
         <label for="vladx-explanation">
-            Пояснение к ответу
+            Пояснення до відповіді
             <span class="vladx-studio-scope-hint">(explanation, Scope.content)</span>
         </label>
         <textarea id="vladx-explanation">{self.explanation}</textarea>
     </div>
 
-    <!-- ===== ЧИСЛОВЫЕ ПОЛЯ Scope.settings ===== -->
+    <!-- ===== ЧИСЛОВІ ПОЛЯ Scope.settings ===== -->
 
     <div class="vladx-studio-field">
         <label for="vladx-max-attempts">
-            Максимум попыток
+            Максимум спроб
             <span class="vladx-studio-scope-hint">(max_attempts, Integer, Scope.settings)</span>
         </label>
         <input type="number" id="vladx-max-attempts" value="{self.max_attempts}" min="1" />
@@ -69,29 +69,29 @@
 
     <div class="vladx-studio-field">
         <label for="vladx-weight">
-            Вес задания
+            Вага завдання
             <span class="vladx-studio-scope-hint">(weight, Float, Scope.settings)</span>
         </label>
         <input type="number" id="vladx-weight" value="{self.weight}" min="0.1" step="0.1" />
     </div>
 
-    <!-- ===== БУЛЕВО ПОЛЕ Scope.settings ===== -->
+    <!-- ===== БУЛЕВЕ ПОЛЕ Scope.settings ===== -->
 
     <div class="vladx-studio-field">
         <label>
-            <!-- data-value используется для корректной инициализации checkbox в JS -->
+            <!-- data-value використовується для коректної ініціалізації checkbox у JS -->
             <input type="checkbox" id="vladx-allow-reset" data-value="{self.allow_reset}" />
-            Разрешить сброс ответа
+            Дозволити скидання відповіді
             <span class="vladx-studio-scope-hint">(allow_reset, Boolean, Scope.settings)</span>
         </label>
     </div>
 
-    <!-- ===== КНОПКИ СОХРАНЕНИЯ / ОТМЕНЫ ===== -->
-    <!-- При сохранении JS вызывает обработчик save_settings, затем runtime.notify('save') -->
-    <!-- При отмене JS вызывает runtime.notify('cancel') -->
+    <!-- ===== КНОПКИ ЗБЕРЕЖЕННЯ / СКАСУВАННЯ ===== -->
+    <!-- При збереженні JS викликає обробник save_settings, потім runtime.notify('save') -->
+    <!-- При скасуванні JS викликає runtime.notify('cancel') -->
     <div class="vladx-studio-buttons">
-        <button class="vladx-studio-save">Сохранить</button>
-        <button class="vladx-studio-cancel">Отмена</button>
+        <button class="vladx-studio-save">Зберегти</button>
+        <button class="vladx-studio-cancel">Скасувати</button>
     </div>
 
 </div>

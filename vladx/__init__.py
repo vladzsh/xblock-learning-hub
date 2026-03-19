@@ -1,15 +1,15 @@
 """
-Модуль инициализации пакета vladx.
+Модуль ініціалізації пакета vladx.
 
-Файл __init__.py делает директорию vladx/ Python-пакетом.
-Импорт VladXBlock здесь позволяет использовать короткий путь:
+Файл __init__.py робить директорію vladx/ Python-пакетом.
+Імпорт VladXBlock тут дозволяє використовувати короткий шлях:
     from vladx import VladXBlock
-вместо:
+замість:
     from vladx.vladx import VladXBlock
 
-Это также необходимо для entry_points в setup.py:
+Це також необхідно для entry_points у setup.py:
     'vladx = vladx:VladXBlock'
              ^^^^^  ^^^^^^^^^
-             пакет  класс (ищется в __init__.py)
+             пакет  клас (шукається в __init__.py)
 """
 from .vladx import VladXBlock
